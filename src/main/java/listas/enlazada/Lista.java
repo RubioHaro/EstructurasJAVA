@@ -10,20 +10,30 @@ public class Lista {
     }
 
     public void printLista() {
-        // Nodo nodo;
-        for (int i = 0; i < numeroElementos; i++) {
+        System.out.println("-----------------------");
+        for (int i = 0; i < numeroElementos; i++)
             System.out.println(ObtenerNodo(i));
-        }
+        System.out.println("-----------------------");
+
     }
 
     // agregar primero
     public void AgregarPrimero(int numero) {
-        Nodo nodo = new Nodo(numero, null); // Haria estuviera vacia
-        if (cabeza != null) {
+        Nodo nodo = new Nodo(numero, null);
+        if (cabeza != null)
             nodo.setSiguiente(cabeza);
-        }
+
         cabeza = nodo;
         numeroElementos++;
+    }
+
+    public void AgregarAlFinal(int numero) {
+        if (cabeza == null) {
+            AgregarPrimero(numero);
+            // numeroElementos++;
+        } else {
+            Agregar(numero, numeroElementos);
+        }
     }
 
     // agregar
@@ -32,21 +42,12 @@ public class Lista {
             System.out.println("Error de longitud");
         } else if (posicion == 0) {
             AgregarPrimero(numero);
-            // numeroElementos++; // Nos esta generando un nodo null
+            // numeroElementos++; // Nos estaba generando un nodo null
         } else if (posicion <= numeroElementos) { // < nos nos permite generar un nodo en la ultima posicion
-            Nodo nodoARemplazar = ObtenerNodo(posicion - 1); // Nos traremos el nodo anterior de la posicion
-            Nodo nodo = new Nodo(numero, nodoARemplazar.getSiguiente());
-            nodoARemplazar.setSiguiente(nodo);
+            Nodo nodoAnterior = ObtenerNodo(posicion - 1); // Nos traremos el nodo anterior de la posicion
+            Nodo nodo = new Nodo(numero, nodoAnterior.getSiguiente());
+            nodoAnterior.setSiguiente(nodo);
             numeroElementos++;
-        }
-    }
-
-    public void AgregarAlFinal(int numero) {
-        if (cabeza == null) {
-            AgregarPrimero(numero);
-            numeroElementos++;
-        } else {
-            Agregar(numero, numeroElementos - 1);
         }
     }
 
@@ -72,10 +73,19 @@ public class Lista {
 
     // remover
     public void Remover(int posicion) {
-        if (cabeza != null) {
-            Nodo nodo = ObtenerNodo(posicion);
-            nodo = null;
-            numeroElementos--;
+        if (cabeza != null && posicion < numeroElementos && posicion >= 0) {
+
+            if (posicion == 0) {
+                cabeza = cabeza.getSiguiente();
+                numeroElementos--;
+            } else {
+                Nodo nodo = ObtenerNodo(posicion - 1); // Nos traemos el anterior al que queremos borrar
+                nodo.setSiguiente(nodo.getSiguiente().getSiguiente()); 
+                // Actualizamos el nodo siguiente del nodo
+                // anterior al que queremos borrar
+                numeroElementos--;
+            }
+
         }
     }
 
