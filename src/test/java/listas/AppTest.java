@@ -42,7 +42,6 @@ public class AppTest {
     @Test
     public void testGet() {
 
-        
         int posicion = 0;
         int elemento = 5;
         initScenario();
@@ -54,7 +53,22 @@ public class AppTest {
         // assertTrue(condition);
         assertTrue("Test Add", checkSize(originalSize, newSize) && list.Obtener(posicion) == elemento); //
         // assertEquals(expected, actual);
-        
+
+    }
+
+    @Test
+    public void testRemove() {
+
+        int posicion = 0;
+        int elemento = 5;
+        initScenario();
+        list.AgregarPrimero(elemento);
+
+        int originalSize = list.getNumeroElementos();
+        list.Remover(posicion);
+        int newSize = list.getNumeroElementos();
+        assertTrue("Test Add", checkSize(originalSize - 1, newSize));
+
     }
 
     private boolean checkSize(int originalSize, int newSize) {

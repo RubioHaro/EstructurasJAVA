@@ -20,30 +20,55 @@ public class DoublyLinkedList implements List {
     public String toString() {
         String list = "";
         for (int i = 0; i < size; i++)
-            list += "\n"+ getNode(i);
+            list += "\n" + getNode(i);
 
         return list;
     }
 
+    /**
+     * Appends the specified element to the start of this list (optional operation).
+     */
     @Override
     public boolean add(Object e) { // Agregar Principio
         Integer number = (Integer) e; // Casteo
 
-        Node nodeNumber = new Node(null, null, number); // Creando un nuevo 
+        Node nodeNumber = new Node(null, null, number); // Creando un nuevo
 
-        if(size == 0 && first == null && last == null){
+        if (isEmpty()) {
             first = nodeNumber;
             last = nodeNumber; // = null
-            size++;
+
         } else { // No es null. Hay mas nodos
             Node temp = getNode(0); // prev == null
-            temp.setPrev(nodeNumber); 
+            temp.setPrev(nodeNumber);
             nodeNumber.setNext(temp);
             first = nodeNumber;
+        }
+        size++;
+        return true;
+    }
+
+    @Override
+    public void add(int index, Object element) {
+        Integer number = (Integer) element; // Casteo
+        if (index < 0 || index > size) {
+            System.out.println("Error de longitud");
+        } else if (index == 0) {
+            add(element);
+        } else if (index == size) { // Insertar al ultimo*
+
+        } else {
+            Node prevNode = getNode(index - 1); // Nos traremos el nodo anterior de la posicion
+            Node node = new Node(prevNode.getNext(), prevNode, number); // Nodo 5
+            prevNode.getNext().setPrev(node); // *
+            prevNode.setNext(node);
+            if (index == size) {
+                last = node;
+                System.out.println("entra");
+            }
             size++;
         }
 
-        return false;
     }
 
     public Node getNode(int index) {
@@ -61,6 +86,31 @@ public class DoublyLinkedList implements List {
     }
 
     @Override
+    public Object remove(int index) {
+        if (!isEmpty() && index < size) {
+            Node node = getNode(index);
+            System.out.println("node r:" + node.getPrev() + " <- " + node + "->" + node.getNext());
+
+            if (size != index + 1) { // Si no es el ultimo
+                System.out.println("size:" + size + "index:" + index);
+                node.getNext().setPrev(node.getPrev());
+            } else {
+                // node.setNext(null);
+                last = node;
+            }
+
+            if (0 != index) { // Si no es el primero
+                node.getPrev().setNext(node.getNext());
+            } else {
+                // node.setPrev(null);
+                first = node;
+            }
+            size--;
+        }
+        return null;
+    }
+
+    @Override
     public boolean remove(Object o) {
         // TODO Auto-generated method stub
         return false;
@@ -68,14 +118,12 @@ public class DoublyLinkedList implements List {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return size;
     }
 
     @Override
-    public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean isEmpty() { // True .> Esta vacia
+        return size == 0 && first == null && last == null;
     }
 
     @Override
@@ -146,18 +194,6 @@ public class DoublyLinkedList implements List {
 
     @Override
     public Object set(int index, Object element) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void add(int index, Object element) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Object remove(int index) {
         // TODO Auto-generated method stub
         return null;
     }

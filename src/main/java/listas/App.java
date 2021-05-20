@@ -10,9 +10,24 @@ public class App {
 
     public static void main(String[] args) {
         DoublyLinkedList list = new DoublyLinkedList();
-        list.add(5);
-        list.add(4);
+        list.add(4); 
+        list.add(6);
+        list.add(7);
         System.out.println(list);
+
+        list.add(2, 5);
+        list.add(2, 5);
+        System.out.println(list);
+        list.add(5, 8);
+        System.out.println(list.size());
+        System.out.println(list);
+
+        // System.out.println(list.size());
+        // System.out.println(list);
+
+        // list.remove(4);
+        // System.out.println(list);
+
 
 
         // Lista list = new Lista();
