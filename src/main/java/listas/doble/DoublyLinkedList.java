@@ -55,17 +55,17 @@ public class DoublyLinkedList implements List {
             System.out.println("Error de longitud");
         } else if (index == 0) {
             add(element);
-        } else if (index == size) { // Insertar al ultimo*
-
         } else {
             Node prevNode = getNode(index - 1); // Nos traremos el nodo anterior de la posicion
             Node node = new Node(prevNode.getNext(), prevNode, number); // Nodo 5
-            prevNode.getNext().setPrev(node); // *
-            prevNode.setNext(node);
+
             if (index == size) {
-                last = node;
-                System.out.println("entra");
+                last = node; // ?
+                last.getPrev().setNext(node);
+            } else {
+                prevNode.getNext().setPrev(node); //
             }
+            prevNode.setNext(node);
             size++;
         }
 
@@ -88,31 +88,36 @@ public class DoublyLinkedList implements List {
     @Override
     public Object remove(int index) {
         if (!isEmpty() && index < size) {
-            Node node = getNode(index);
-            System.out.println("node r:" + node.getPrev() + " <- " + node + "->" + node.getNext());
-
+            Node node = getNode(index); // Justo el que removemos
             if (size != index + 1) { // Si no es el ultimo
-                System.out.println("size:" + size + "index:" + index);
                 node.getNext().setPrev(node.getPrev());
             } else {
-                // node.setNext(null);
-                last = node;
+                last = node.getPrev();
             }
 
             if (0 != index) { // Si no es el primero
                 node.getPrev().setNext(node.getNext());
             } else {
-                // node.setPrev(null);
-                first = node;
+                first = node.getNext();
             }
             size--;
         }
         return null;
     }
 
+    public boolean remove1(Object o) {
+        Integer number = (Integer) o; // Casteo
+        for (int i = 0; i < size(); i++) {
+            if (getNode(i).getItem() == number) {
+                remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean remove(Object o) {
-        // TODO Auto-generated method stub
         return false;
     }
 

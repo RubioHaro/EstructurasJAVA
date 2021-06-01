@@ -17,16 +17,17 @@ public class App {
 
         list.add(2, 5);
         list.add(2, 5);
-        System.out.println(list);
+        // System.out.println(list);
         list.add(5, 8);
-        System.out.println(list.size());
+        // System.out.println(list.size());
         System.out.println(list);
 
         // System.out.println(list.size());
         // System.out.println(list);
 
-        // list.remove(4);
-        // System.out.println(list);
+        // list.remove(3);
+        list.remove1(5);
+        System.out.println(list);
 
 
 
