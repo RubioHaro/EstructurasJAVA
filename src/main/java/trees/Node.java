@@ -2,12 +2,25 @@ package trees;
 
 public class Node {
     private Node left, right;
-    private int value;
+    private int value; //key
+    private String tag;
 
     public Node(int value) {
         this.left = null;
         this.right = null;
         this.value = value;
+    }
+
+    public Node(int value, String tag) {
+        this.left = null;
+        this.right = null;
+        this.value = value;
+        this.tag = tag;
+    }
+
+    @Override
+    public String toString() {
+        return "tag:" + tag + " value:" + value;
     }
 
     public Node(Node left, Node right, int value) {

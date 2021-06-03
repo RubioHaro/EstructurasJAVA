@@ -12,6 +12,33 @@ public class BinaryTree {
     }
 
     // add()
+    public void add(int number, String tag) {
+        if (isEmpty()) {
+            root = new Node(number, tag);
+        } else {
+            addRec(number, root, tag);
+        }
+    }
+
+    public void addRec(int number, Node node, String tag) {
+        if (number < node.getValue()) { // izq
+            if (node.getLeft() == null) {
+                System.out.println("Node added " + number + " to left of " + node.getValue());
+                node.setLeft(new Node(number, tag));
+            } else {
+                addRec(number, node.getLeft(), tag);
+            }
+        } else if (number > node.getValue()) {
+            if (node.getRight() == null) {
+                System.out.println("Node added " + number + " to right of " + node.getValue());
+                node.setRight(new Node(number, tag));
+            } else {
+                addRec(number, node.getRight(), tag);
+            }
+        }
+    }
+
+    // add()
     public void add(int number) {
         if (isEmpty()) {
             root = new Node(number);
@@ -29,7 +56,7 @@ public class BinaryTree {
                 addRec(number, node.getLeft());
             }
         } else if (number > node.getValue()) {
-            if (node.getRight() == null){
+            if (node.getRight() == null) {
                 System.out.println("Node added " + number + " to right of " + node.getValue());
                 node.setRight(new Node(number));
             } else {
@@ -38,31 +65,78 @@ public class BinaryTree {
         }
     }
 
-    public void traversePreOrderRec(Node node) { 
-        if(node != null){
-            System.out.print(" "+ node.getValue());
+    public Node search(int number) {
+        if (!isEmpty()) {
+            return searchR(number, root);
+        } else {
+            return root;
+        }
+    }
+
+    // get()
+    public Node searchR(int number, Node node) {
+        if (node.getValue() == number || node == null) {
+            return node;
+        }
+        if (number < node.getValue()) {
+            return searchR(number, node.getLeft());
+        }
+        return searchR(number, node.getRight());
+    }
+
+    public void remove(int number){
+        if(!isEmpty()){
+            removeRec(number, root);
+        }
+    }
+
+    // remove()
+    public Node removeRec(int number, Node node) {
+
+        // Recorrer
+        if (number < node.getValue()) { // left
+            node.setLeft(removeRec(number, node.getLeft()));
+        } else if (number > node.getValue()) {
+            node.setRight(removeRec(number, node.getRight()));
+        } else {
+            // node contiente solo 1 hijo
+            if (node.getLeft() == null) {
+                return node.getRight();
+            } else if (node.getRight() == null) {
+                return node.getLeft();
+            }
+            // node contiente 2 hijo
+            // node.setValue()
+            node = node.getRight();
+            node.setRight(removeRec(node.getValue(), node.getRight()));
+            // node contiente solo 0 hijo
+
+        }
+        return node;
+    }
+
+    public void traversePreOrderRec(Node node) {
+        if (node != null) {
+            System.out.print(" " + node.getValue());
             traversePreOrderRec(node.getLeft());
             traversePreOrderRec(node.getRight());
         }
     }
 
-    public void traverseInOrderRec(Node node) { 
-        if(node != null){
-            traversePreOrderRec(node.getLeft());// *
-            System.out.print(" "+ node.getValue());
-            traversePreOrderRec(node.getRight());// *
+    public void traverseInOrderRec(Node node) {
+        if (node != null) {
+            traverseInOrderRec(node.getLeft());// *
+            System.out.print(" " + node.getValue());
+            traverseInOrderRec(node.getRight());// *
         }
     }
 
-    public void traversePostOrderRec(Node node) { 
-        if(node != null){
-            traversePreOrderRec(node.getLeft());// *
-            traversePreOrderRec(node.getRight());
-            System.out.print(" "+ node.getValue());// *
+    public void traversePostOrderRec(Node node) {
+        if (node != null) {
+            traversePostOrderRec(node.getLeft());// *
+            traversePostOrderRec(node.getRight());
+            System.out.print(" " + node.getValue());// *
         }
     }
-
-    // get()
-    // remove()
 
 }
