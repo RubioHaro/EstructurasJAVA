@@ -13,11 +13,11 @@ public class BinaryTree {
 
     // add()
     public void add(int number, String tag) {
-        if (isEmpty()) {
+        if (isEmpty())
             root = new Node(number, tag);
-        } else {
+        else
             addRec(number, root, tag);
-        }
+
     }
 
     public void addRec(int number, Node node, String tag) {
@@ -25,26 +25,26 @@ public class BinaryTree {
             if (node.getLeft() == null) {
                 System.out.println("Node added " + number + " to left of " + node.getValue());
                 node.setLeft(new Node(number, tag));
-            } else {
+            } else
                 addRec(number, node.getLeft(), tag);
-            }
+
         } else if (number > node.getValue()) {
             if (node.getRight() == null) {
                 System.out.println("Node added " + number + " to right of " + node.getValue());
                 node.setRight(new Node(number, tag));
-            } else {
+            } else
                 addRec(number, node.getRight(), tag);
-            }
+
         }
     }
 
     // add()
     public void add(int number) {
-        if (isEmpty()) {
+        if (isEmpty())
             root = new Node(number);
-        } else {
+        else
             addRec(number, root);
-        }
+
     }
 
     public void addRec(int number, Node node) {
@@ -52,65 +52,56 @@ public class BinaryTree {
             if (node.getLeft() == null) {
                 System.out.println("Node added " + number + " to left of " + node.getValue());
                 node.setLeft(new Node(number));
-            } else {
+            } else
                 addRec(number, node.getLeft());
-            }
+
         } else if (number > node.getValue()) {
             if (node.getRight() == null) {
                 System.out.println("Node added " + number + " to right of " + node.getValue());
                 node.setRight(new Node(number));
-            } else {
+            } else
                 addRec(number, node.getRight());
-            }
         }
     }
 
     public Node search(int number) {
-        if (!isEmpty()) {
+        if (!isEmpty())
             return searchR(number, root);
-        } else {
+        else
             return root;
-        }
+
     }
 
     // get()
     public Node searchR(int number, Node node) {
-        if (node.getValue() == number || node == null) {
+        if (node.getValue() == number || node == null)
             return node;
-        }
-        if (number < node.getValue()) {
+        if (number < node.getValue())
             return searchR(number, node.getLeft());
-        }
+
         return searchR(number, node.getRight());
     }
 
-    public void remove(int number){
-        if(!isEmpty()){
+    public void remove(int number) {
+        if (!isEmpty())
             removeRec(number, root);
-        }
+
     }
 
     // remove()
     public Node removeRec(int number, Node node) {
 
         // Recorrer
-        if (number < node.getValue()) { // left
+        if (number < node.getValue()) // left
             node.setLeft(removeRec(number, node.getLeft()));
-        } else if (number > node.getValue()) {
+        else if (number > node.getValue())
             node.setRight(removeRec(number, node.getRight()));
-        } else {
+        else {
             // node contiente solo 1 hijo
-            if (node.getLeft() == null) {
+            if (node.getLeft() == null)
                 return node.getRight();
-            } else if (node.getRight() == null) {
+            else if (node.getRight() == null)
                 return node.getLeft();
-            }
-            // node contiene 2 hijos
-            // Node temp = node.getRight();
-            // node.setValue(temp.getValue());
-            // node.setTag(temp.getTag());
-            // node.setRight(removeRec(node.getValue(), node.getRight()));
-            // node contiente solo 0 hijo
 
             Node temp = getMinNode(node.getRight());
             node.setValue(temp.getValue());
@@ -121,10 +112,10 @@ public class BinaryTree {
         return node;
     }
 
-    public Node getMinNode(Node node){
-        while (node.getLeft() != null) {
+    public Node getMinNode(Node node) {
+        while (node.getLeft() != null)
             node = node.getLeft();
-        }
+
         return node;
     }
 
