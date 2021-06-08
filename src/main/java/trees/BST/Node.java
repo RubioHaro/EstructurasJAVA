@@ -1,4 +1,4 @@
-package trees;
+package trees.BST;
 
 public class Node {
     private Node left, right;
@@ -27,6 +27,14 @@ public class Node {
         this.left = left;
         this.right = right;
         this.value = value;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public Node getLeft() {

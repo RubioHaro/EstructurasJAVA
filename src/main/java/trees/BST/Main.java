@@ -1,4 +1,4 @@
-package trees;
+package trees.BST;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,6 +27,8 @@ public class Main {
         // tree.remove(0);
         // tree.remove(2);
         tree.remove(5);
+
+        // System.out.println(tree.search(6));
 
 
         System.out.println("\nInOrder");

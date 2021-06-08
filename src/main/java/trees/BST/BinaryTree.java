@@ -1,4 +1,4 @@
-package trees;
+package trees.BST;
 
 public class BinaryTree {
     private Node root;
@@ -105,12 +105,25 @@ public class BinaryTree {
             } else if (node.getRight() == null) {
                 return node.getLeft();
             }
-            // node contiente 2 hijo
-            // node.setValue()
-            node = node.getRight();
-            node.setRight(removeRec(node.getValue(), node.getRight()));
+            // node contiene 2 hijos
+            // Node temp = node.getRight();
+            // node.setValue(temp.getValue());
+            // node.setTag(temp.getTag());
+            // node.setRight(removeRec(node.getValue(), node.getRight()));
             // node contiente solo 0 hijo
 
+            Node temp = getMinNode(node.getRight());
+            node.setValue(temp.getValue());
+            node.setTag(temp.getTag());
+            node.setRight(removeRec(node.getValue(), node.getRight()));
+
+        }
+        return node;
+    }
+
+    public Node getMinNode(Node node){
+        while (node.getLeft() != null) {
+            node = node.getLeft();
         }
         return node;
     }
