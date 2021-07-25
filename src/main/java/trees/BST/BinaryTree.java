@@ -85,7 +85,6 @@ public class BinaryTree {
     public void remove(int number) {
         if (!isEmpty())
             removeRec(number, root);
-
     }
 
     // remove()

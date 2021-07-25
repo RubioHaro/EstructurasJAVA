@@ -6,6 +6,15 @@ public class AVLNode extends Node {
     private int height;
     private AVLNode left, right;
 
+    public AVLNode(int value) {
+        this(value, null, 0);
+    }
+
+    public AVLNode(int value, String tag) {
+        super(value, tag);
+        this.height = 0;
+    }
+
     public AVLNode(int value, int height) {
         super(value);
         this.height = height;
@@ -29,7 +38,7 @@ public class AVLNode extends Node {
         this.height = height;
     }
 
-    
+    @Override
     public AVLNode getLeft() {
         return left;
     }
@@ -38,6 +47,7 @@ public class AVLNode extends Node {
         this.left = left;
     }
     
+    @Override
     public AVLNode getRight() {
         return right;
     }
